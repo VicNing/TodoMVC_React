@@ -12,12 +12,13 @@ const React = require('react');
 class TodoItem extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {editing: false, editingText: ''};
+		this.state = {editing: false, editingText: this.props.todo.text};
 		this.onEdit = this.onEdit.bind(this);
 		this.onDbClick = this.onDbClick.bind(this);
 		this.handleCheck = this.handleCheck.bind(this);
 		this.handleDestroy = this.handleDestroy.bind(this);
 		this.handleEditSubmit = this.handleEditSubmit.bind(this);
+		this.onRandomClick = this.onRandomClick.bind(this);
 	}
 
 	render() {
@@ -46,6 +47,27 @@ class TodoItem extends React.Component {
 		);
 	}
 
+	componentDidUpdate(prevProps, prevState) {
+		if (!prevState.editing && this.state.editing) {
+			this.editInput.focus();
+		}
+	}
+
+	componentDidMount() {
+		window.addEventListener('click', this.onRandomClick)
+	}
+
+	componentWillUnmount() {
+		window.removeEventListener('click', this.onRandomClick);
+	}
+
+	onRandomClick(e) {
+		if (e.target != this.editInput) {
+			this.setState({editing: false, editingText: this.props.todo.text});
+		}
+	}
+
+
 	onEdit(e) {
 		this.setState({editingText: e.target.value});
 	}
@@ -62,8 +84,11 @@ class TodoItem extends React.Component {
 		this.props.onDestroy();
 	}
 
-	handleEditSubmit() {
-		this.props.onEditSubmit(this.state.editingText);
+	handleEditSubmit(e) {
+		if ('Enter' === e.key && this.state.editingText.trim()) {
+			this.props.onEditSubmit(this.state.editingText);
+			this.setState({editing: false});
+		}
 	}
 }
 

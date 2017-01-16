@@ -1,9 +1,9 @@
 /**
  * Created by Neil on 2017/1/16.
  */
-// import {ADD_TODO, UPDATE_TODO, TOGGLE_ALL, REMOVE_TODO, REMOVE_COMPLETE} from '../actions/index'
-
 const {ADD_TODO, UPDATE_TODO, TOGGLE_ALL, REMOVE_TODO, REMOVE_COMPLETE} = require('../actions/index');
+
+
 function todos(state = [], action) {
 	switch (action.type) {
 		case ADD_TODO:
@@ -27,8 +27,10 @@ function todos(state = [], action) {
 				};
 			});
 		case REMOVE_TODO:
-			return state.map(item => item)
-				.splice(action.index, 1);
+			console.log('remove');
+			let temp = state.map(item => item);
+			temp.splice(action.index, 1);
+			return temp;
 		case REMOVE_COMPLETE:
 			return state.map(item => item)
 				.filter((item) => !item.completed);

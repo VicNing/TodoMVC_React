@@ -1,14 +1,6 @@
 /**
  * Created by Neil on 2017/1/16.
  */
-// import React from 'react'
-// import ReactDOM from 'react-dom'
-// import {createStore} from 'redux'
-// import {Provider} from 'react-redux'
-// import {todoApp} from './reducers/index'
-// import {HeaderCon} from './components/Header'
-// import {MainCon} from './components/Main'
-// import FooterCon from './components/Footer'
 const React = require('react');
 const ReactDOM = require('react-dom');
 const todoApp = require('./reducers/index');

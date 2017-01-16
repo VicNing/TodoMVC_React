@@ -3,3 +3,4 @@ template.html
 dist/
 cache/
 .idea/
+js/index.legacy.jsx
