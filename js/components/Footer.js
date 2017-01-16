@@ -6,15 +6,10 @@ const React = require('react');
 const {removeComplete} = require('../actions/index');
 
 
-class Footer extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
-	render() {
+function Footer(props) {
 		return (
 			<footer className="footer">
-				<span className="todo-count"><strong>{this.props.itemLeft}</strong> item left</span>
+				<span className="todo-count"><strong>{props.itemLeft}</strong> item left</span>
 				<ul className="filters">
 					<li>
 						<a className="selected" to="/">All</a>
@@ -26,10 +21,9 @@ class Footer extends React.Component {
 						<a to="/completed">Completed</a>
 					</li>
 				</ul>
-				<button className="clear-completed" onClick={this.props.clearComplete}>Clear completed</button>
+				<button className="clear-completed" onClick={props.clearComplete}>Clear completed</button>
 			</footer>
 		);
-	}
 }
 
 function mapStateToProps(state, props) {
