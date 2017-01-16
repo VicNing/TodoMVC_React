@@ -1,9 +1,11 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
-const Router = require('react-router').Router
-const Route = require('react-router').Route
-const Link = require('react-router').Link
+const Router = require('react-router').Router;
+const Route = require('react-router').Route;
+const Link = require('react-router').Link;
 const browserHistory = require('react-router').browserHistory;
+const Redux = require('redux');
+const ReactRedux = require('react-redux');
 
 let todoList = [{
 	// id: 0,
@@ -18,7 +20,7 @@ let todoList = [{
 class Todo extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = { input: '', data: todoList };
+		this.state = {input: '', data: todoList};
 		this.onInputChange = this.onInputChange.bind(this);
 		this.onInputSubmit = this.onInputSubmit.bind(this);
 		this.onCompleteCheck = this.onCompleteCheck.bind(this);
@@ -34,15 +36,15 @@ class Todo extends React.Component {
 				<Header
 					input={this.state.input}
 					onInputChange={this.onInputChange}
-					onInputSubmit={this.onInputSubmit} />
+					onInputSubmit={this.onInputSubmit}/>
 				<Main
 					data={this.state.data}
 					routeParams={this.props.params}
 					onItemSubmit={this.onItemSubmit}
 					onSelectAll={this.onSelectAll}
 					onDestroyItem={this.onDestroyItem}
-					onCompleteCheck={this.onCompleteCheck} />
-				<Footer data={this.state.data} clearComplete={this.clearComplete} />
+					onCompleteCheck={this.onCompleteCheck}/>
+				<Footer data={this.state.data} clearComplete={this.clearComplete}/>
 			</section>
 		);
 	}
@@ -64,7 +66,7 @@ class Todo extends React.Component {
 		this.setState((prev, props) => {
 			let index = prev.data.indexOf(ref.props.todo);
 			prev.data.splice(index, 1);
-			return { data: prev.data };
+			return {data: prev.data};
 		});
 	}
 
@@ -87,14 +89,14 @@ class Todo extends React.Component {
 	}
 
 	onInputChange(e) {
-		this.setState({ input: e.target.value });
+		this.setState({input: e.target.value});
 	}
 
 	onSelectAll(e) {
 		let completed = e.target.checked;
 		this.setState((prev, props) => {
 			prev.data.forEach((item) => item.completed = completed);
-			return { data: prev.data };
+			return {data: prev.data};
 		});
 	}
 
@@ -106,7 +108,7 @@ class Todo extends React.Component {
 					result.push(item);
 				}
 			});
-			return { data: result }
+			return {data: result}
 		});
 	}
 
@@ -114,9 +116,9 @@ class Todo extends React.Component {
 		this.setState((prev) => {
 			let index = prev.data.indexOf(ref.props.todo);
 			prev.data[index].text = ref.state.editingText;
-			return { data: prev.data };
+			return {data: prev.data};
 		});
-		ref.setState({ editing: false });
+		ref.setState({editing: false});
 	}
 
 }
@@ -137,7 +139,7 @@ class Header extends React.Component {
 					value={this.props.input}
 					onKeyDown={this.props.onInputSubmit}
 					onChange={this.props.onInputChange}
-					/>
+				/>
 			</header>
 		);
 	}
@@ -173,7 +175,7 @@ class Main extends React.Component {
 				onItemSubmit={this.props.onItemSubmit}
 				onCompleteCheck={this.props.onCompleteCheck}
 				onDestroyItem={this.props.onDestroyItem}
-				todo={todo} />);
+				todo={todo}/>);
 
 		return (
 			<section className="main">
@@ -181,7 +183,7 @@ class Main extends React.Component {
 					className="toggle-all"
 					type="checkbox"
 					defaultChecked={false}
-					onChange={this.props.onSelectAll} />
+					onChange={this.props.onSelectAll}/>
 				<label htmlFor="toggle-all">Mark all as complete</label>
 				<ul className="todo-list">
 					{todoItems}
@@ -194,7 +196,7 @@ class Main extends React.Component {
 class TodoItem extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = { editing: false, editingText: props.todo.text };
+		this.state = {editing: false, editingText: props.todo.text};
 		this.handleCheck = this.handleCheck.bind(this);
 		this.handleDestroy = this.handleDestroy.bind(this);
 		this.handleEditSubmit = this.handleEditSubmit.bind(this);
@@ -211,9 +213,9 @@ class TodoItem extends React.Component {
 						className="toggle"
 						type="checkbox"
 						checked={this.props.todo.completed}
-						onChange={this.handleCheck} />
+						onChange={this.handleCheck}/>
 					<label onDoubleClick={this.onDbClick}>{this.props.todo.text}</label>
-					<button className="destroy" onClick={this.handleDestroy} />
+					<button className="destroy" onClick={this.handleDestroy}/>
 				</div>
 				<input
 					type="text"
@@ -223,7 +225,7 @@ class TodoItem extends React.Component {
 					} }
 					value={this.state.editingText}
 					onChange={this.onEdit}
-					onKeyDown={this.handleEditSubmit} />
+					onKeyDown={this.handleEditSubmit}/>
 			</li>
 		);
 	}
@@ -238,7 +240,7 @@ class TodoItem extends React.Component {
 
 	onRandomClick(e) {
 		if (e.target != this.editInput) {
-			this.setState({ editing: false, editingText: this.props.todo.text });
+			this.setState({editing: false, editingText: this.props.todo.text});
 		}
 	}
 
@@ -263,11 +265,11 @@ class TodoItem extends React.Component {
 	}
 
 	onDbClick(e) {
-		this.setState({ editing: true });
+		this.setState({editing: true});
 	}
 
 	onEdit(e) {
-		this.setState({ editingText: e.target.value });
+		this.setState({editingText: e.target.value});
 	}
 }
 
@@ -303,7 +305,7 @@ class Footer extends React.Component {
 // ReactDOM.render(<Todo/>, document.querySelector('#root'));
 ReactDOM.render(
 	<Router history={browserHistory}>
-		<Route path='/' component={Todo} />
-		<Route path='/:state' component={Todo} />
+		<Route path='/' component={Todo}/>
+		<Route path='/:state' component={Todo}/>
 	</Router>,
 	document.querySelector('#root'));
