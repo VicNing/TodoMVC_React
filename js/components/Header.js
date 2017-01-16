@@ -1,8 +1,12 @@
 /**
  * Created by Neil on 2017/1/16.
  */
-import {addTodo} from '../actions/index'
-import {connet} from 'react-redux'
+// import {addTodo} from '../actions/index'
+// import {connect} from 'react-redux'
+// import React from 'react'
+const {addTodo} = require('../actions/index');
+const {connect} = require('react-redux');
+const React = require('react');
 
 class Header extends React.Component {
 	constructor(props) {
@@ -31,6 +35,7 @@ class Header extends React.Component {
 	handleKeyDown(e) {
 		if ('Enter' === e.key && this.state.input.trim()) {
 			this.props.onInputSubmit(this.state.input);
+			this.setState({input:''});
 		}
 	}
 
@@ -50,5 +55,6 @@ function mapDispatchToProps(dispatch, props) {
 	};
 
 }
-export const HeaderCon = connect(mapStateToProps, mapDispatchToProps)(Header);
+const HeaderCon = connect(mapStateToProps, mapDispatchToProps)(Header);
 
+module.exports = HeaderCon;

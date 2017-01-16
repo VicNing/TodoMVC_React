@@ -1,8 +1,13 @@
 /**
  * Created by Neil on 2017/1/16.
  */
-import {connect} from 'react-redux'
-import {updateTodo,removeTodo} from '../actions/index'
+// import {connect} from 'react-redux'
+// import {updateTodo,removeTodo} from '../actions/index'
+// import React from 'react'
+
+const {updateTodo, removeTodo} = require('../actions/index');
+const {connect} = require('react-redux');
+const React = require('react');
 
 class TodoItem extends React.Component {
 	constructor(props) {
@@ -16,6 +21,7 @@ class TodoItem extends React.Component {
 	}
 
 	render() {
+		// console.log('completed?= ' + this.props.completed);
 		return (
 			<li className={`${this.props.todo.completed ? 'completed' : ''} ${this.state.editing ? 'editing' : ''}`}>
 				<div className='view'>
@@ -62,10 +68,7 @@ class TodoItem extends React.Component {
 }
 
 function mapStateToProps(state, ownProps) {
-	return {
-		todo: ownProps.todo,
-		index: state.todos.indexOf(ownProps.todo)
-	};
+	return {};
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
@@ -82,4 +85,6 @@ function mapDispatchToProps(dispatch, ownProps) {
 	};
 
 }
-export const TodoItemCon = connect(mapStateToProps, mapDispatchToProps)(TodoItem);
+const TodoItemCon = connect(mapStateToProps, mapDispatchToProps)(TodoItem);
+
+module.exports = TodoItemCon;

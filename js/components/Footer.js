@@ -1,8 +1,10 @@
 /**
  * Created by Neil on 2017/1/16.
  */
-import {connet} from 'react-redux'
-import {removeComplete}  from '../actions/index'
+const {connect} = require('react-redux');
+const React = require('react');
+const {removeComplete} = require('../actions/index');
+
 
 class Footer extends React.Component {
 	constructor(props) {
@@ -38,9 +40,11 @@ function mapStateToProps(state, props) {
 
 function mapDispatchToProps(dispatch, props) {
 	return {
-		clearComplete:function () {
+		clearComplete: function () {
 			dispatch(removeComplete());
 		},
 	};
 }
-export const FooterCon = connect(mapStateToProps, mapDispatchToProps)(Footer);
+const FooterCon = connect(mapStateToProps, mapDispatchToProps)(Footer);
+
+module.exports = FooterCon;

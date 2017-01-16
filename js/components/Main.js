@@ -1,9 +1,14 @@
 /**
  * Created by Neil on 2017/1/16.
  */
-import {connect} from 'react-redux'
-import {completeAll} from '../actions/index'
-import {TodoItemCon} from './TodoItem'
+// import {connect} from 'react-redux'
+// import {completeAll} from '../actions/index'
+// import {TodoItemCon} from './TodoItem'
+// import React from 'react'
+const {toggleAll} = require('../actions/index');
+const {connect} = require('react-redux');
+const React = require('react');
+const TodoItemCon = require('./TodoItem');
 
 class Main extends React.Component {
 	constructor(props) {
@@ -14,6 +19,7 @@ class Main extends React.Component {
 		let todoItems = this.props.todos.map((todo, index) =>
 			<TodoItemCon
 				key={index}
+				index = {index}
 				todo={todo}/>);
 
 		return (
@@ -41,9 +47,11 @@ function mapStateToProps(state, props) {
 function mapDispatchToProps(dispatch, props) {
 	return {
 		onSelectAll: function (e) {
-			dispatch(completeAll(e.target.checked));
+			dispatch(toggleAll(e.target.checked));
 		}
 	};
 }
 
-export const MainCon = connect(mapStateToProps, mapDispatchToProps)(Main);
+const MainCon = connect(mapStateToProps, mapDispatchToProps)(Main);
+
+module.exports = MainCon;
