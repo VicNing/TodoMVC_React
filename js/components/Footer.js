@@ -4,7 +4,7 @@
 const {connect} = require('react-redux');
 const React = require('react');
 const {removeComplete} = require('../actions/index');
-const Link = require('react-router').Link;
+const {Link} = require('react-router');
 
 function Footer(props) {
 	return (
