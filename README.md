@@ -1,6 +1,19 @@
 # [TodoMVC](http://todomvc.com)
 A TodoMVC demo project build with React, Redux and React-Router.Using Webpack as JavaScript module bundler tool, 
 and Babel to transpile ECMAScript 2015.
+## Spinning up
+To Spin up this project, run:
+```
+npm install
+```
+to install all the prerequisites, and run:
+```
+npm start serve
+```
+to spin up a webpack-dev-server. Then, visit
+ >http://localhost:8080
+ 
+ to checkout what's going on.
 ## Implementation
 - [React](https://github.com/facebook/react)
 
