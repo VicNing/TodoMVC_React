@@ -1,10 +1,6 @@
 /**
  * Created by Neil on 2017/1/16.
  */
-// import {connect} from 'react-redux'
-// import {completeAll} from '../actions/index'
-// import {TodoItemCon} from './TodoItem'
-// import React from 'react'
 const {toggleAll} = require('../actions/index');
 const {connect} = require('react-redux');
 const React = require('react');
@@ -16,11 +12,28 @@ class Main extends React.Component {
 	}
 
 	render() {
+		console.log(this.props.params);
+		console.log(this.props.todos);
 		let todoItems = this.props.todos.map((todo, index) =>
 			<TodoItemCon
 				key={index}
-				index = {index}
+				index={index}
 				todo={todo}/>);
+
+		let renderedTodos = [];
+		if (this.props.params) {
+			switch (this.props.params.state) {
+				case 'active':
+					renderedTodos = todoItems.filter((item) => !item.props.todo.completed);
+					break;
+				case 'completed':
+					renderedTodos = todoItems.filter((item) => item.props.todo.completed);
+					break;
+				default:
+					renderedTodos = todoItems;
+					break;
+			}
+		}
 
 		return (
 			<section className="main">
@@ -31,16 +44,17 @@ class Main extends React.Component {
 					onChange={this.props.onSelectAll}/>
 				<label htmlFor="toggle-all">Mark all as complete</label>
 				<ul className="todo-list">
-					{todoItems}
+					{renderedTodos}
 				</ul>
 			</section>
 		);
 	}
 }
 
-function mapStateToProps(state, props) {
+function mapStateToProps(state, ownProps) {
 	return {
-		todos: state.todos
+		todos: state.todos,
+		params: ownProps.params
 	};
 }
 
