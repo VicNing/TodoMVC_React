@@ -24,6 +24,6 @@ to spin up a webpack-dev-server. Then, visit
 - [Webpack](https://github.com/webpack/webpack)
 
 - [Babel](https://github.com/babel/babel)
-## Credit
 
+## Credit
 Created by Neil
