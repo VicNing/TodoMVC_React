@@ -1,4 +1,5 @@
 # Framework Name • [TodoMVC](http://todomvc.com)
+A TodoMVC demo project build with React, Redux and React-Router.
 
 > Official description of the framework (from its website)
 
