@@ -8,7 +8,7 @@ npm install
 ```
 to install all the prerequisites, and run:
 ```
-npm start serve
+npm start server
 ```
 to spin up a webpack-dev-server. Then, visit
  >http://localhost:8080
