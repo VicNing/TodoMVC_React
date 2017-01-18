@@ -4,7 +4,7 @@
 const {toggleAll} = require('../actions/index');
 const {connect} = require('react-redux');
 const React = require('react');
-const TodoItemCon = require('./TodoItem');
+const {getVisibleTodos} = require('../selectors/TodoItemSelector');
 
 class Main extends React.Component {
 	constructor(props) {
@@ -12,29 +12,6 @@ class Main extends React.Component {
 	}
 
 	render() {
-		console.log(this.props.params);
-		console.log(this.props.todos);
-		let todoItems = this.props.todos.map((todo, index) =>
-			<TodoItemCon
-				key={index}
-				index={index}
-				todo={todo}/>);
-
-		let renderedTodos = [];
-		if (this.props.params) {
-			switch (this.props.params.state) {
-				case 'active':
-					renderedTodos = todoItems.filter((item) => !item.props.todo.completed);
-					break;
-				case 'completed':
-					renderedTodos = todoItems.filter((item) => item.props.todo.completed);
-					break;
-				default:
-					renderedTodos = todoItems;
-					break;
-			}
-		}
-
 		return (
 			<section className="main">
 				<input
@@ -44,7 +21,7 @@ class Main extends React.Component {
 					onChange={this.props.onSelectAll}/>
 				<label htmlFor="toggle-all">Mark all as complete</label>
 				<ul className="todo-list">
-					{renderedTodos}
+					{this.props.TodoCons}
 				</ul>
 			</section>
 		);
@@ -53,7 +30,7 @@ class Main extends React.Component {
 
 function mapStateToProps(state, ownProps) {
 	return {
-		todos: state.todos,
+		TodoCons: getVisibleTodos(state, ownProps),
 		params: ownProps.params
 	};
 }

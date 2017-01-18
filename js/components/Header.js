@@ -26,8 +26,7 @@ class Header extends React.Component {
 					autoFocus
 					value={this.state.input}
 					onKeyDown={this.handleKeyDown}
-					onChange={this.onInputChange}
-				/>
+					onChange={this.onInputChange}/>
 			</header>
 		);
 	}
@@ -35,7 +34,7 @@ class Header extends React.Component {
 	handleKeyDown(e) {
 		if ('Enter' === e.key && this.state.input.trim()) {
 			this.props.onInputSubmit(this.state.input);
-			this.setState({input:''});
+			this.setState({input: ''});
 		}
 	}
 
